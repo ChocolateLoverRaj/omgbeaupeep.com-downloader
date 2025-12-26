@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/gocolly/colly"
+	"github.com/jung-kurt/gofpdf"
 )
 
 func downloadImage(url string, outputPath string) error {
@@ -76,6 +77,9 @@ func DownloadComic(route string) {
 		err := c.Visit("https://www.omgbeaupeep.com/comics" + route + "/" + strconv.Itoa(index))
 		if err != nil {
 			if err.Error() == "Not Found" {
+				// Create a new PDF instance
+				pdf := gofpdf.New("P", "mm", "A4", "")
+
 				fmt.Println("Task completed.")
 				break
 			} else {
